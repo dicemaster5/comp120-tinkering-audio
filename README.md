@@ -1,6 +1,6 @@
 # comp-120-tinkering-audio
 ## Pair Programmers: Sam Auber, Adrian Carter
-### We will be doing contract Contract #3 - Music Generation
+### We will be doing Contract #3 - Music Generation
 ####  - Save File:
 ##### We need to be able to save the generated music as a music file(s). Files should be saved in a chosen directory with a given name.
 ##### Stretch Goal: Have the user choose the file type and file name.
