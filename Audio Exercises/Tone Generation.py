@@ -29,24 +29,24 @@ def tone_generator():
     nchannels = 1
     sample_width = 2
     framerate = 44100
-    nframes = framerate * 2
+    nframes = framerate * 3
     frequency = 440
     sample_rate = 44100
     volume = 1
     bit_depth = 32767
 
-    file = 'new_file'
+    file = 'new_file.wav'
     noise_out = wave.open(file, 'w')
-    noise_out.setparams((nchannels, sample_width, framerate, nframes))
+    noise_out.setparams((nchannels, sample_width, framerate, nframes, 'NONE', 'not compressed'))
     values = []
-    for i in range(0,sample_width):
-        value = math.sin(2.0 * math.pi * frequency * (i / sample_rate)) * (volume * bit_depth)
+    for i in range(0, nframes):
+        value = math.sin(2.0 * math.pi * frequency * (float(i) / sample_rate)) * (volume * bit_depth)
         packaged_value = struct.pack("<h", value)
         for j in xrange(0, nchannels):
             values.append(packaged_value)
 
     value_str = ''.join(values)
-    noise_out.write(value_str)
+    noise_out.writeframes(value_str)
 
     noise_out.close()
 
