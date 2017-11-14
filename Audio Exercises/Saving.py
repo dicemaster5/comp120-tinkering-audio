@@ -2,9 +2,6 @@ import pygame
 import wave
 import numpy
 
-def change_volume(samples,volume_change):
-    for sample in samples:
-        sample *= volume_change
 
 pygame.init()
 pygame.mixer.init()
@@ -13,10 +10,12 @@ screen_width = 800
 screen_height = 600
 pygame.display.set_mode((screen_width, screen_height))
 
-pygame.mixer.music.load("bensound-scifi.mp3") # play when kep pressed
+
+pygame.mixer.music.load("MusicFile1.mp3") # play when kep pressed
 
 explosion_sound = pygame.mixer.Sound("Explosion.wav")
 explosion_samples = pygame.sndarray.samples(explosion_sound)
+pygame.sndarray.make_sound(explosion_samples)
 
 def save_snd(sound_file):
     sound = pygame.mixer.Sound(sound_file)
@@ -29,23 +28,16 @@ def save_snd(sound_file):
     file = wave.open("editedsound.wav", "w")
     file.write(new_sound)
     file.close()
-    #new_file = raw_input("") + ".wav"
-    #pygame.mixer.save(new_sound, ("new_sound.wav"))
-
-    # open new wave file
-    #sfile = wave.open('white_noise.wav', 'w')
 
 
-
-    # write raw PyGame sound buffer to wave file
-    sfile.writeframesraw(new_sound.get_buffer().raw)
-
-    # close file
-    sfile.close()
-
+def change_volume(samples,volume_change):
+    for sample in samples:
+        numpy.multiply(sample, volume_change, out=sample, casting="unsafe")
 
 
 running = True
+music_volume = 0.5
+
 while running:
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
@@ -56,13 +48,19 @@ while running:
             if event.key == pygame.K_SPACE:
                 explosion_sound.play()
             if event.key == pygame.K_UP:
-                change_volume(explosion_samples, 10000)
+                change_volume(explosion_samples, 10.5)
             if event.key == pygame.K_q:
                 pygame.mixer.music.play()
             if event.key == pygame.K_w:
                 pygame.mixer.music.stop()
             if event.key == pygame.K_s:
                 save_snd(explosion_sound)
+            if event.key == pygame.K_i:
+                music_volume += 0.1
+                pygame.mixer.music.set_volume(music_volume)
+            if event.key == pygame.K_k:
+                music_volume -= 0.1
+                pygame.mixer.music.set_volume(music_volume)
 
 
     pygame.display.update()
