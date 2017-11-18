@@ -30,7 +30,7 @@ def tone_generator():
     sample_width = 2
     framerate = 44100
     nframes = framerate * 3
-    frequency = 440
+    frequency = 240
     sample_rate = 44100
     volume = 1
     bit_depth = 32767
