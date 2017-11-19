@@ -30,12 +30,12 @@ def tone_generator():
     sample_width = 2
     framerate = 44100
     nframes = framerate * 3
-    frequency = 880
+    frequency = 240
     sample_rate = 44100
     volume = 1
     bit_depth = 32767
 
-    file = 'new_file_1.wav'
+    file = 'new_file.wav'
     noise_out = wave.open(file, 'w')
     noise_out.setparams((nchannels, sample_width, framerate, nframes, 'NONE', 'not compressed'))
     values = []
@@ -105,9 +105,8 @@ while running:
             running = False
         if event.type==pygame.KEYDOWN:
             if event.key == pygame.K_SPACE:
+                tone_generator()
                 tone_generator_2()
-                
-
 
     pygame.display.update()
 
