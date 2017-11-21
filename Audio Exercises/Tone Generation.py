@@ -26,6 +26,7 @@ def change_volume(samples,volume_change):
         numpy.multiply(sample, volume_change, out=sample, casting="unsafe")
 
 def tone_generator():
+    # Variables for the sound tone that will be created
     nchannels = 1
     sample_width = 2
     framerate = 44100
