@@ -26,6 +26,7 @@ def change_volume(samples,volume_change):
         numpy.multiply(sample, volume_change, out=sample, casting="unsafe")
 
 '''This function generates a single tone'''
+# The first tone to be created and played
 def tone_generator():
     # Variables for the sound tone that will be created
     nchannels = 1
@@ -37,6 +38,7 @@ def tone_generator():
     volume = 1
     bit_depth = 32767
 
+    # Name of the file
     file = 'new_file.wav'
     # creates a wav file
     noise_out = wave.open(file, 'w')
@@ -56,7 +58,7 @@ def tone_generator():
 
     noise_out.close()
 
-
+# The second tone that gets gets created
 def tone_generator_2():
     nchannels = 1
     sample_width = 2
@@ -71,6 +73,7 @@ def tone_generator_2():
     volume = 1
     bit_depth = 32767
 
+    # Name of the file
     file = 'new_file_2.wav'
     noise_out = wave.open(file, 'w')
     noise_out.setparams((nchannels, sample_width, framerate, nframes, 'NONE', 'not compressed'))
