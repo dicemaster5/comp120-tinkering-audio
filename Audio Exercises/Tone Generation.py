@@ -104,6 +104,19 @@ def tone_generator_2():
 
     noise_out.close()
 
+
+def echo(sound1,sound2,delay,sample_length):
+    values=[]
+    for i in range(0,sample_length):
+        values.append(sound1[i])
+        if i>delay:
+            echo=sound1[i]*0.6
+            values.append(echo+sound1[i])
+    return values
+
+
+
+
 running = True
 music_volume = 0.5
 
@@ -115,8 +128,9 @@ while running:
             running = False
         if event.type==pygame.KEYDOWN:
             if event.key == pygame.K_SPACE:
-                tone_generator()
-                tone_generator_2()
+                #tone_generator()
+                #tone_generator_2()
+                echo(new_file, new_file_2, 1, )
 
     pygame.display.update()
 
