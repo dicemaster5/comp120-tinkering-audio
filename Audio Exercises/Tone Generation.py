@@ -25,6 +25,7 @@ def change_volume(samples,volume_change):
     for sample in samples:
         numpy.multiply(sample, volume_change, out=sample, casting="unsafe")
 
+'''This function generates a single tone'''
 def tone_generator():
     nchannels = 1
     sample_width = 2
@@ -36,9 +37,13 @@ def tone_generator():
     bit_depth = 32767
 
     file = 'new_file.wav'
+    # creates a wav file
     noise_out = wave.open(file, 'w')
+    # sets wav file parameters
     noise_out.setparams((nchannels, sample_width, framerate, nframes, 'NONE', 'not compressed'))
+    # creates an empty list to assign samples to later
     values = []
+    # a loop to create samples using sine
     for i in range(0, nframes):
         value = math.sin(2.0 * math.pi * frequency * (float(i) / sample_rate)) * (volume * bit_depth)
         packaged_value = struct.pack("<h", value)
