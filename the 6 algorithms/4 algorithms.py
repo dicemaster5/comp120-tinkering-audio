@@ -12,12 +12,14 @@ SAMPLE_RATE = 44100.0
 BIT_DEPTH = 2.0
 CHANNELS = 2
 
+notes = {"A": 0, "A#": 1, "B": 2, "C": 3, "C#": 4, "D": 5, "D#": 6, "E": 7, "F": 8, "F#": 9, "G": 10, "G#": 11}
+
 def change_volume(samples,volume_change):
     for sample in samples:
         numpy.multiply(sample, volume_change, out=sample, casting="unsafe")
 
 def generate_tone_from_string(note,sample_rate, seconds, volume):
-    notes = {"A": 0, "A#": 1, "B": 2, "C": 3, "C#": 4, "D": 5, "D#": 6, "E": 7, "F": 8, "F#": 9, "G": 10, "G#": 11}
+
     values = []
     frequency = 440.0 * 2.0 ** (notes[note] / 12.0)
     sample_length = seconds * 44100
@@ -47,6 +49,7 @@ def save_melody(wav_data, name_of_file):
     value_str = ''.join((str(n) for n in packed_values))
     noise_out.writeframes(value_str)
     noise_out.close()
+
 
 
 note1 = generate_tone_from_string('D', SAMPLE_RATE, 1, 1000.0)
