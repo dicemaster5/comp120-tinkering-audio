@@ -16,11 +16,11 @@ def change_volume(samples,volume_change):
     for sample in samples:
         numpy.multiply(sample, volume_change, out=sample, casting="unsafe")
 
-def generate_tone_from_string(note,sample_rate, sample_length, volume):
+def generate_tone_from_string(note,sample_rate, seconds, volume):
     notes = {"A": 0, "A#": 1, "B": 2, "C": 3, "C#": 4, "D": 5, "D#": 6, "E": 7, "F": 8, "F#": 9, "G": 10, "G#": 11}
     values = []
     frequency = 440.0 * 2.0 ** (notes[note] / 12.0)
-    sample_length = sample_length * 44100
+    sample_length = seconds * 44100
     for i in range(0, sample_length):
         value = math.sin(2 * math.pi * frequency * (i / sample_rate)) * (volume * BIT_DEPTH)
         for j in xrange(0, CHANNELS):
