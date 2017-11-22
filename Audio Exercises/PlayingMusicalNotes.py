@@ -24,8 +24,8 @@ def generate_sine_wave(note,sample_rate, sample_length, volume):
 
 
 def save_wave_file(filename, wav_data, sample_rate):
-    packed_values=[]
-    for i in range(0,len(wav_data)):
+    packed_values = []
+    for i in range(0, len(wav_data)):
         packed_value = struct.pack('h', wav_data[i])
         packed_values.append(packed_value)
 

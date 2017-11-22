@@ -1,0 +1,6 @@
+Tone generation
+Combine tones
+Volume control
+Note conversation, string to sound
+Text file reader for ABC notation
+Saving tones as sound file
