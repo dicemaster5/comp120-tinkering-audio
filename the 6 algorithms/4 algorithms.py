@@ -20,6 +20,7 @@ def generate_tone_from_string(note,sample_rate, sample_length, volume):
     notes = {"A": 0, "A#": 1, "B": 2, "C": 3, "C#": 4, "D": 5, "D#": 6, "E": 7, "F": 8, "F#": 9, "G": 10, "G#": 11}
     values = []
     frequency = 440.0 * 2.0 ** (notes[note] / 12.0)
+    sample_length = sample_length * 44100
     for i in range(0, sample_length):
         value = math.sin(2 * math.pi * frequency * (i / sample_rate)) * (volume * BIT_DEPTH)
         for j in xrange(0, CHANNELS):
@@ -48,13 +49,13 @@ def save_melody(wav_data, name_of_file):
     noise_out.close()
 
 
-note1 = generate_tone_from_string('D', SAMPLE_RATE, 22050, 1000.0)
-note2 = generate_tone_from_string('F', SAMPLE_RATE, 22050, 1000.0)
-note3 = generate_tone_from_string('D', SAMPLE_RATE, 22050, 1000.0)
-note4 = generate_tone_from_string('D', SAMPLE_RATE, 22050, 1000.0)
-note5 = generate_tone_from_string('F', SAMPLE_RATE, 22050, 1000.0)
-note6 = generate_tone_from_string('D', SAMPLE_RATE, 22050, 1000.0)
-note7 = generate_tone_from_string('E', SAMPLE_RATE, 22050, 1000.0)
+note1 = generate_tone_from_string('D', SAMPLE_RATE, 1, 1000.0)
+note2 = generate_tone_from_string('F', SAMPLE_RATE, 5, 1000.0)
+note3 = generate_tone_from_string('D', SAMPLE_RATE, 2, 1000.0)
+note4 = generate_tone_from_string('D', SAMPLE_RATE, 1, 1000.0)
+note5 = generate_tone_from_string('F', SAMPLE_RATE, 3, 1000.0)
+note6 = generate_tone_from_string('D', SAMPLE_RATE, 1, 1000.0)
+note7 = generate_tone_from_string('E', SAMPLE_RATE, 1, 1000.0)
 
 #melody_list = [note1, note2, note3, note4]
 new_melody = note1.extend(note2)
