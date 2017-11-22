@@ -48,11 +48,19 @@ def save_melody(wav_data, name_of_file):
     noise_out.close()
 
 
-note1 = generate_tone_from_string('A#', SAMPLE_RATE, 132000, 1000.0)
-note2 = generate_tone_from_string('D', SAMPLE_RATE, 132000, 1000.0)
-note3 = generate_tone_from_string('A', SAMPLE_RATE, 132000, 1000.0)
-note4 = generate_tone_from_string('f#', SAMPLE_RATE, 132000, 1000.0)
+note1 = generate_tone_from_string('D', SAMPLE_RATE, 22050, 1000.0)
+note2 = generate_tone_from_string('F', SAMPLE_RATE, 22050, 1000.0)
+note3 = generate_tone_from_string('D', SAMPLE_RATE, 22050, 1000.0)
+note4 = generate_tone_from_string('D', SAMPLE_RATE, 22050, 1000.0)
+note5 = generate_tone_from_string('F', SAMPLE_RATE, 22050, 1000.0)
+note6 = generate_tone_from_string('D', SAMPLE_RATE, 22050, 1000.0)
+note7 = generate_tone_from_string('E', SAMPLE_RATE, 22050, 1000.0)
 
-melody_list = [note1, note2, note3, note4]
+#melody_list = [note1, note2, note3, note4]
 new_melody = note1.extend(note2)
+new_melody = note1.extend(note3)
+new_melody = note1.extend(note4)
+new_melody = note1.extend(note5)
+new_melody = note1.extend(note6)
+new_melody = note1.extend(note7)
 save_melody(note1, "newMelody.wav")
