@@ -3,6 +3,7 @@ import wave
 import numpy
 import math
 import struct
+import random
 
 pygame.init()
 pygame.mixer.init()
@@ -15,6 +16,7 @@ CHANNELS = 2
 notes = {"A": 0, "A#": 1, "B": 2, "C": 3, "C#": 4, "D": 5, "D#": 6, "E": 7, "F": 8, "F#": 9, "G": 10, "G#": 11,
          "a": 12, "a#": 13, "b": 14, "c": 15, "c#": 16, "d": 17, "d#": 18, "e": 19, "f": 20, "f#": 21, "g": 22, "g#": 23}
 sound_file = []
+random_music = []
 
 
 def change_volume(samples,volume_change):
@@ -40,6 +42,14 @@ def write_melody(list_of_notes):
         sound_file.extend(generate_tone_from_string(note, SAMPLE_RATE, 0.6, 1000.0))
 
 
+def generate_random_music(number_of_notes):
+    current_number_of_notes = 0
+    while number_of_notes > current_number_of_notes:
+        random_music.append(random.choice(notes.keys()))
+        current_number_of_notes = current_number_of_notes + 1
+    print random_music
+
+
 def save_melody(wav_data, name_of_file):
     packed_values = []
     for i in range(0, len(wav_data)):
@@ -53,8 +63,10 @@ def save_melody(wav_data, name_of_file):
     noise_out.close()
 
 
-list_of_notes = ['D', 'F', 'd', 'D', 'F', 'd', 'e', 'f', 'e', 'f', 'e', 'c', 'A', 'A', 'D', 'F', 'G', 'A', 'A', 'D', 'F', 'G', 'E']
+writen_melody = ['D', 'F', 'd', 'D', 'F', 'd', 'e', 'f', 'e', 'f', 'e', 'c', 'A', 'A', 'D', 'F', 'G', 'A', 'A', 'D', 'F', 'G', 'E']
 
-write_melody(list_of_notes)
+generate_random_music(10)
+
+write_melody(random_music)
 
 save_melody(sound_file, "newMelody.wav")
