@@ -30,23 +30,28 @@ def generate_tone_from_string(note,sample_rate, seconds, volume):
     sample_length = int(seconds * 44100)
     for i in range(0, sample_length):
         value = math.sin(2 * math.pi * frequency * (i / sample_rate)) * (volume * BIT_DEPTH)
+        value_2 = 2 * (math.sin(frequency * (i / sample_rate)) * (volume * BIT_DEPTH)) / -math.pi
+        value_3 = 4 * (math.sin(frequency * (i / sample_rate)) * (volume * BIT_DEPTH)) / math.pi
         for j in xrange(0, CHANNELS):
             values.append(value)
+            values.append(value_2)
+            #values.append(value_3)
 
     return values
 
 
 def write_melody(list_of_notes):
-    sound_file.extend(generate_tone_from_string(list_of_notes[0], SAMPLE_RATE, 0.6, 1000.0))
+
+    sound_file.extend(generate_tone_from_string(list_of_notes[0], SAMPLE_RATE, random.choice([0.2, 0.2, 0.2, 0.5]), 1000.0))
     for note in list_of_notes[1:]:
-        sound_file.extend(generate_tone_from_string(note, SAMPLE_RATE, 0.6, 1000.0))
+        sound_file.extend(generate_tone_from_string(note, SAMPLE_RATE, random.choice([0.2, 0.2, 0.2, 0.5]), 1000.0))
 
 
 def generate_random_music(number_of_notes):
     current_number_of_notes = 0
     while number_of_notes > current_number_of_notes:
         random_music.append(random.choice(notes.keys()))
-        current_number_of_notes = current_number_of_notes + 1
+        current_number_of_notes += 1
     print random_music
 
 
@@ -62,10 +67,29 @@ def save_melody(wav_data, name_of_file):
     noise_out.writeframes(value_str)
     noise_out.close()
 
+def generate_square_wave(frequency, sample_rate, sample_length, volume):
+    values = []
+    for i in range(0, sample_length):
+        value = 4*(math.sin(frequency * (i / sample_rate)) * (volume * BIT_DEPTH))/math.pi
 
-writen_melody = ['D', 'F', 'd', 'D', 'F', 'd', 'e', 'f', 'e', 'f', 'e', 'c', 'A', 'A', 'D', 'F', 'G', 'A', 'A', 'D', 'F', 'G', 'E']
+        for j in xrange(0, CHANNELS):
+            values.append(value)
 
-generate_random_music(10)
+    return values
+
+def generate_saw_tooth_wave(frequency, sample_rate, sample_length, volume):
+    values = []
+    for i in range(0, sample_length):
+        value = 2*(math.sin(frequency * (i / sample_rate)) * (volume * BIT_DEPTH))/-math.pi
+
+        for j in xrange(0, CHANNELS):
+            values.append(value)
+
+    return values
+
+written_melody = ['D', 'F', 'd', 'D', 'F', 'd', 'e', 'f', 'e', 'f', 'e', 'c', 'A', 'A', 'D', 'F', 'G', 'A', 'A', 'D', 'F', 'G', 'E']
+
+generate_random_music(20)
 
 write_melody(random_music)
 
