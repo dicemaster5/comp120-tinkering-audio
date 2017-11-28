@@ -13,14 +13,46 @@ SAMPLE_RATE = 44100.0
 BIT_DEPTH = 2.0
 CHANNELS = 2
 
-# dictionary for the various notes, two octaves currently
-notes = {"A": 0, "A#": 1, "B": 2, "C": 3, "C#": 4, "D": 5, "D#": 6, "E": 7,
+# dictionary for the various notes, spans three octaves
+'''
+notes = {"iA": -12, "iA#": -11, "iB": -10, "iC": -9, "iC#": -8, "iD": -7,
+         "iD#": -6, "iE": -5, "iF": -4, "iF#": -3, "iG": -2, "iG#": -1, "A": 0,
+         "A#": 1, "B": 2, "C": 3, "C#": 4, "D": 5, "D#": 6, "E": 7,
          "F": 8, "F#": 9, "G": 10, "G#": 11, "a": 12, "a#": 13, "b": 14,
          "c": 15, "c#": 16, "d": 17, "d#": 18, "e": 19, "f": 20, "f#": 21,
          "g": 22, "g#": 23}
+'''
 
+dark_notes = {"iC": -9, "iD": -7, "iD#": -6, "iF": -4, "iG": -2, "A": 0, "B": 2}  # mysterious jazzy
 
+exotic_notes = {"C": 3, "C#": 4, "E": 7, "F": 8, "G": 10, "G#": 11, "a#": 13}  # exotic, middle eastern
 
+happy_notes = {"C": 3, "D": 5,"E": 7,"a": 12, "b": 14, "F": 8, "B": 2, "G": 10}  # major scale
+
+blues_notes = {"iA": -12, "iA#": -11, "iB": -10, "iD": -7, "iE": -5, "iF": -4, "A": 0}  # blues
+
+spanish_notes = {"C": 3, "C#": 4, "D#": 6, "F": 8, "G": 10, "G#": 11, "a#": 13}  # spanish/flamenco
+
+dreamy_notes = {"C": 3, "D": 5, "E": 7, "F#": 9, "G#": 11, "a#": 13}  # dreamy/underwater
+
+arpeggio_notes = {"iA": -12, "iC#": -8, "iE": -5, "iG#": -1, "A": 0,}  # Arpeggio
+
+dict = int(raw_input("Pick a genre number 1-Dark, 2-Exotic, 3-Happy, 4-Blues, 5-Spanish, 6-Dreamy, 7-Arpeggio : "))
+
+if dict == 1:
+    dict = dark_notes
+if dict == 2:
+    dict = exotic_notes
+if dict == 3:
+    dict = happy_notes
+if dict == 4:
+    dict = blues_notes
+if dict == 5:
+    dict = spanish_notes
+if dict == 6:
+    dict = dreamy_notes
+if dict == 7:
+    dict = arpeggio_notes
 
 def change_volume(samples,volume_change):
     for sample in samples:
@@ -31,7 +63,7 @@ def change_volume(samples,volume_change):
 
 def generate_saw_tone_from_string(note, sample_rate, seconds, volume):
     values = []
-    frequency = 440.0 * 2.0 ** (notes[note] / 12.0)
+    frequency = 440.0 * 2.0 ** (dict[note] / 12.0)
     sample_length = int(seconds * 44100)
     for i in range(0, sample_length):
         value = math.sin(2 * math.pi * frequency * (i / sample_rate)) * \
@@ -41,9 +73,9 @@ def generate_saw_tone_from_string(note, sample_rate, seconds, volume):
         value_3 = 4 * (math.sin(frequency * (i / sample_rate)) *
                        (volume * BIT_DEPTH)) / math.pi
         for j in xrange(0, CHANNELS):
-            #values.append(value)
+            values.append(value)
             #values.append(value_2)
-            values.append(value_3)
+            #values.append(value_3)
 
     return values
 
@@ -52,11 +84,11 @@ def generate_saw_tone_from_string(note, sample_rate, seconds, volume):
 random_music = []
 
 # you can choose the number of notes that will be played
-def generate_random_music(number_of_notes):
+def generate_random_music(number_of_notes, dict):
     current_number_of_notes = 0
     while number_of_notes > current_number_of_notes:
         # creates a list called random_music out of the notes in the dictionary
-        random_music.append(random.choice(notes.keys()))
+        random_music.append(random.choice(dict.keys()))
         current_number_of_notes += 1
     print random_music
 
@@ -99,12 +131,12 @@ pre_written_melody = ['D', 'F', 'd', 'D', 'F', 'd', 'e', 'f', 'e', 'f',
 
 
 
-note_speed = int(raw_input("Choose a speed between 1 and 3, 1 being slow, 3 being fast: "))
-tune_length = int(raw_input("Choose the number of tones to be generated in the track: "))
+note_speed = int(raw_input("Choose a speed 1-Slow, 2-Medium, 3-Fast: "))
+tune_length = int(raw_input("Choose the length of the track (~30-200): "))
+file_name = raw_input("Name your music file: ")
 
-
-generate_random_music(tune_length)
+generate_random_music(tune_length, dict)
 
 write_melody(random_music, note_speed)
 
-save_melody(data_to_save, "newMelody.wav")
+save_melody(data_to_save, file_name +".wav")
