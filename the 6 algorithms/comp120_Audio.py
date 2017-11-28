@@ -29,7 +29,7 @@ def change_volume(samples,volume_change):
 
 '''This function generates a tone'''
 
-def generate_tone_from_string(note, sample_rate, seconds, volume):
+def generate_saw_tone_from_string(note, sample_rate, seconds, volume):
     values = []
     frequency = 440.0 * 2.0 ** (notes[note] / 12.0)
     sample_length = int(seconds * 44100)
@@ -64,15 +64,17 @@ def generate_random_music(number_of_notes):
 '''This function uses the tone generator to create the music samples '''
 
 data_to_save = []
+def write_melody(list_of_notes, tune_speed):
+    for note in list_of_notes[:]:
+        if tune_speed == 3:
+            note_length = random.choice([0.2, 0.2, 0.4, 0.1, 0.1])
+        if tune_speed == 2:
+            note_length = random.choice([0.2, 0.4, 0.4, 1, 0.6, 0.8])
+        if tune_speed == 1:
+            note_length = random.choice([1.2, 1, 1.4, 1, 0.5])
 
-def write_melody(list_of_notes):
-    data_to_save.extend(generate_tone_from_string
-                        (list_of_notes[0], SAMPLE_RATE, random.choice
-                        ([0.2, 0.2, 0.4, 0.6, 1, 0.4 ]), 1000.0))
-    for note in list_of_notes[1:]:
-        data_to_save.extend(generate_tone_from_string
-                            (note, SAMPLE_RATE, random.choice
-                            ([0.2, 0.2, 0.4, 0.6, 1, 0.4 ]), 1000.0))
+        data_to_save.extend(generate_saw_tone_from_string
+                            (note, SAMPLE_RATE, note_length, 1000.0))
 
 
 '''This function saves the data as a wav file'''
@@ -90,14 +92,19 @@ def save_melody(wav_data, name_of_file):
     noise_out.writeframes(value_str)
     noise_out.close()
 
-
 pre_written_melody = ['D', 'F', 'd', 'D', 'F', 'd', 'e', 'f', 'e', 'f',
                       'e', 'c', 'A', 'A', 'D', 'F', 'G', 'A', 'A', 'D',
                       'F', 'G', 'E']
 
-# number of notes can be changed, also changes the music length
-generate_random_music(20)
 
-write_melody(random_music)
+
+
+note_speed = int(raw_input("Choose a speed between 1 and 3, 1 being slow, 3 being fast: "))
+tune_length = int(raw_input("Choose the number of tones to be generated in the track: "))
+
+
+generate_random_music(tune_length)
+
+write_melody(random_music, note_speed)
 
 save_melody(data_to_save, "newMelody.wav")
