@@ -49,10 +49,10 @@ def write_melody(list_of_notes, tune_speed, sound_wave_type, note_dict):
                                 (note, SAMPLE_RATE, note_length, 1000.0, note_dict))
         if sound_wave_type == 2:
             data_to_save.extend(generate_square_tone_from_string
-                                (note, SAMPLE_RATE, note_length, 1000.0, note_dict))
+                                (note, SAMPLE_RATE, note_length, 1500.0, note_dict))
         if sound_wave_type == 3:
             data_to_save.extend(generate_saw_tone_from_string
-                                (note, SAMPLE_RATE, note_length, 1000.0, note_dict))
+                                (note, SAMPLE_RATE, note_length, 1500.0, note_dict))
 
 
 '''This function saves the data as a wav file'''

@@ -12,7 +12,7 @@ random_notes = {"iA": -12, "iA#": -11, "iB": -10, "iC": -9, "iC#": -8, "iD": -7,
                 "g": 22, "g#": 23}
 
 # this assigns the different scales to dictionaries
-dark_notes = {"iC": -9, "iD": -7, "iD#": -6, "iF": -4, "iG": -2, "A": 0, "B": 2}  # mysterious jazzy
+dark_notes = {"iC": -9, "iC#": -8, "iD#": -6, "iF": -4, "iF#": -3, "iG#": -1, "A#": 1}  # mysterious jazzy
 
 exotic_notes = {"C": 3, "C#": 4, "E": 7, "F": 8, "G": 10, "G#": 11, "a#": 13}  # exotic, middle eastern
 
