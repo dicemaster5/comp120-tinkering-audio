@@ -55,7 +55,7 @@ def write_melody(list_of_notes, tune_speed, sound_wave_type, note_dict):
                                 (note, SAMPLE_RATE, note_length, 1500.0, note_dict))
 
 
-'''This function saves the data as a wav file'''
+'''This function saves the data as a wav file in the same file directory as the main file'''
 
 
 def save_melody(wav_data, name_of_file):
